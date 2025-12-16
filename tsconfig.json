@@ -5,6 +5,7 @@
     "target": "es2020",
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
+    "experimentalDecorators": true,
     "incremental": true,
     "noImplicitAny": false,
     "moduleResolution": "node",
