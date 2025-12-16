@@ -11,7 +11,7 @@ export class MikroTodo{
     @Property()
     description: string;
 
-    @Property()
+    @Property({ fieldName: 'is_complete'})
     isComplete!: boolean;
 
 }
