@@ -1,23 +1,41 @@
 // Require the framework and instantiate it
 
 // ESM
-import Fastify from 'fastify'
+import Fastify, { FastifyInstance } from "fastify";
+import { todoRoutes } from "./interface-adapters/controllers/todo.controller";
+import { MikroORM } from "@mikro-orm/postgresql";
 
-const fastify = Fastify({
-  logger: true
-})
- 
+export async function buildApp(): Promise<FastifyInstance> {
+  const app = Fastify({
+    logger: true,
+  });
 
-// Declare a route
-fastify.get('/', function (request, reply) {
-  reply.send({ hello: 'world' })
-})
+  // const orm = await MikroORM.init(mikroOrmConfig)
 
-// Run the server!
-fastify.listen({ port: 3000 }, function (err, address) {
-  if (err) {
-    fastify.log.error(err)
-    process.exit(1)
+  // cons
+  // app.register( async(instance) => {
+  //   todoRoutes(instance, )
+  // });
+
+
+  return app;
+}
+
+const start = async () => {
+  const server = await buildApp();
+
+  try {
+    server.listen({ port: 3000 }, function (err, address) {
+      if (err) {
+        server.log.error(err);
+        process.exit(1);
+      }
+      // Server is now listening on ${address}
+    });
+  } catch (err) {
+    server.log.error(err);
+    process.exit(1);
   }
-  // Server is now listening on ${address}
-})
+};
+
+start();
